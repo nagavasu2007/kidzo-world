@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kidzo world 🌟</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- ===== AUTH SCREEN ===== -->
+<div id="authScreen" class="screen active">
+  <!-- ADD YOUR AUTH BACKGROUND: style="background-image:url('YOUR_URL')" on #authScreen -->
+  <div class="auth-bg-overlay"></div>
+  <div class="auth-container">
+    <div class="auth-logo">
+      <div class="logo-icon">🌟</div>
+      <h1>kidzo world</h1>
+      <p>A magical learning adventure!</p>
+    </div>
+    <div class="auth-tabs">
+      <button class="tab-btn active" onclick="switchTab('signin')">Sign In</button>
+      <button class="tab-btn" onclick="switchTab('signup')">Sign Up</button>
+    </div>
+    <div id="signinForm" class="auth-form active">
+      <div class="input-group">
+        <span class="input-icon">👤</span>
+        <input type="text" id="signinUsername" placeholder="Username" autocomplete="off"/>
+      </div>
+      <div class="input-group">
+        <span class="input-icon">🔒</span>
+        <input type="password" id="signinPassword" placeholder="Password"/>
+      </div>
+      <div id="signinError" class="auth-error"></div>
+      <button class="btn-primary" onclick="handleSignIn()">Sign In 🚀</button>
+    </div>
+    <div id="signupForm" class="auth-form">
+      <div class="input-group">
+        <span class="input-icon">👤</span>
+        <input type="text" id="signupUsername" placeholder="Choose a Username" autocomplete="off"/>
+      </div>
+      <div class="input-group">
+        <span class="input-icon">🔒</span>
+        <input type="password" id="signupPassword" placeholder="Choose a Password"/>
+      </div>
+      <div id="signupError" class="auth-error"></div>
+      <button class="btn-primary" onclick="handleSignUp()">Sign Up ✨</button>
+    </div>
+    <div class="auth-divider"><span>or</span></div>
+    <button class="btn-guest" onclick="enterGuestMode()">🎭 Explore as Guest</button>
+    <p class="guest-note">Limited access — sign up to unlock everything!</p>
+  </div>
+</div>
+
+<!-- ===== WELCOME SCREEN ===== -->
+<div id="welcomeScreen" class="screen">
+  <!-- ADD YOUR WELCOME BACKGROUND: style="background-image:url('YOUR_URL')" on #welcomeScreen -->
+  <div class="welcome-bg-overlay"></div>
+  <div class="welcome-content">
+    <div class="welcome-header">
+      <div class="welcome-logo">🌟</div>
+      <h1 class="welcome-title">Welcome to Kidzo world!</h1>
+      <div id="welcomeUser" class="welcome-user"></div>
+      <p class="welcome-quote" id="welcomeQuote"></p>
+    </div>
+    <div class="overall-progress-box" id="overallProgressBox">
+      <div class="op-label">🌟 Overall Progress</div>
+      <div class="op-track"><div class="op-fill" id="opFill"></div></div>
+      <div class="op-pct" id="opPct">0%</div>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card" onclick="openSection('animals')">
+        <div class="feature-icon">🦁</div>
+        <h3>Animals</h3>
+        <p>Explore amazing creatures</p>
+        <div class="card-prog-bar"><div class="card-prog-fill" id="prog-animals"></div></div>
+      </div>
+      <div class="feature-card" onclick="openSection('birds')">
+        <div class="feature-icon">🦜</div>
+        <h3>Birds</h3>
+        <p>Discover colorful birds</p>
+        <div class="card-prog-bar"><div class="card-prog-fill" id="prog-birds"></div></div>
+      </div>
+      <div class="feature-card" onclick="openSection('fruits')">
+        <div class="feature-icon">🍎</div>
+        <h3>Fruits</h3>
+        <p>Taste nature's gifts</p>
+        <div class="card-prog-bar"><div class="card-prog-fill" id="prog-fruits"></div></div>
+      </div>
+      <div class="feature-card" onclick="openSection('vegetables')">
+        <div class="feature-icon">🥕</div>
+        <h3>Vegetables</h3>
+        <p>Eat healthy, grow strong</p>
+        <div class="card-prog-bar"><div class="card-prog-fill" id="prog-vegetables"></div></div>
+      </div>
+      <div class="feature-card" onclick="openSection('rhymes')">
+        <div class="feature-icon">🎵</div>
+        <h3>Rhymes</h3>
+        <p>Sing and have fun</p>
+        <div class="card-prog-bar"><div class="card-prog-fill" id="prog-rhymes"></div></div>
+      </div>
+      <div class="feature-card" onclick="openSection('tables')">
+        <div class="feature-icon">🔢</div>
+        <h3>Tables</h3>
+        <p>Learn multiplication</p>
+        <div class="card-prog-bar"><div class="card-prog-fill" id="prog-tables"></div></div>
+      </div>
+      <div class="feature-card" onclick="openSection('gamezone')">
+        <div class="feature-icon">🎮</div>
+        <h3>Game Zone</h3>
+        <p>Play &amp; learn games</p>
+        <div class="card-prog-bar"><div class="card-prog-fill" id="prog-gamezone"></div></div>
+      </div>
+      <div class="feature-card" onclick="openSection('readzone')">
+        <div class="feature-icon">📚</div>
+        <h3>Read Zone</h3>
+        <p>Stories &amp; books</p>
+        <div class="card-prog-bar"><div class="card-prog-fill" id="prog-readzone"></div></div>
+      </div>
+    </div>
+    <button class="btn-logout" onclick="logout()">🚪 Logout</button>
+  </div>
+</div>
+
+<!-- ===== LEARN SECTION ===== -->
+<div id="learnSection" class="screen">
+  <!-- ADD SECTION BACKGROUNDS via JS using item.bgColor or the div style below -->
+  <!-- ADD YOUR ANIMALS BACKGROUND: set style on #learnSection or use JS -->
+  <div class="section-bg-overlay"></div>
+  <div class="section-container">
+    <div class="section-header">
+      <button class="btn-back" onclick="goBack('welcome')">← Back</button>
+      <h2 id="learnSectionTitle">Animals</h2>
+    </div>
+    <div class="sec-prog-wrap">
+      <div class="sec-prog-top"><span id="secProgLabel">Items Explored</span><span id="secProgPct">0%</span></div>
+      <div class="sec-prog-track"><div class="sec-prog-fill" id="secProgFill"></div></div>
+    </div>
+    <div class="items-grid" id="itemsGrid"></div>
+  </div>
+</div>
+
+<!-- ===== ITEM DETAIL ===== -->
+<div id="itemDetail" class="screen">
+  <div class="section-bg-overlay"></div>
+  <div class="detail-container">
+    <div class="section-header">
+      <button class="btn-back" id="detailBackBtn">← Back</button>
+      <h2 id="detailTitle"></h2>
+    </div>
+    <div class="detail-content">
+      <div class="detail-image-box">
+        <!-- ADD image URL per item in script.js data: image: 'YOUR_IMAGE_URL' -->
+        <div class="detail-image-placeholder" id="detailImage">🦁</div>
+      </div>
+      <div class="detail-info">
+        <h3 id="detailName"></h3>
+        <p id="detailStory"></p>
+        <div class="detail-facts" id="detailFacts"></div>
+      </div>
+    </div>
+    <button class="btn-quiz" onclick="startQuiz()">🎯 Play Quiz</button>
+  </div>
+</div>
+
+<!-- ===== QUIZ ===== -->
+<div id="quizScreen" class="screen">
+  <div class="section-bg-overlay"></div>
+  <div class="quiz-container">
+    <div class="quiz-header">
+      <button class="btn-back" onclick="goBack('itemDetail')">← Back</button>
+      <div><span id="questionNum">Q 1/5</span> <span id="questionDiff" class="diff-badge">Easy</span></div>
+      <div class="quiz-score-box">⭐ <span id="quizScore">0</span></div>
+    </div>
+    <div class="quiz-steps" id="quizSteps"></div>
+    <div class="quiz-card">
+      <h3 id="quizQuestion"></h3>
+      <div class="quiz-options" id="quizOptions"></div>
+    </div>
+    <div id="quizFeedback" class="quiz-feedback hidden"></div>
+    <button id="nextBtn" class="btn-primary hidden" onclick="nextQuestion()">Next →</button>
+  </div>
+</div>
+
+<!-- ===== QUIZ RESULT ===== -->
+<div id="quizResult" class="screen">
+  <div class="section-bg-overlay"></div>
+  <div class="result-container">
+    <div class="result-emoji" id="resultEmoji">🎉</div>
+    <h2 id="resultTitle">Well Done!</h2>
+    <div class="result-score" id="resultScore">5/5</div>
+    <p id="resultMsg"></p>
+    <div class="result-buttons">
+      <button class="btn-primary" onclick="retryQuiz()">🔄 Try Again</button>
+      <button class="btn-secondary" onclick="goBack('welcome')">🏠 Home</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== RHYMES ===== -->
+<div id="rhymesSection" class="screen">
+  <!-- ADD YOUR RHYMES BACKGROUND: style="background-image:url('YOUR_URL')" on #rhymesSection -->
+  <div class="section-bg-overlay"></div>
+  <div class="section-container">
+    <div class="section-header">
+      <button class="btn-back" onclick="goBack('welcome')">← Back</button>
+      <h2>🎵 Rhymes</h2>
+    </div>
+    <div class="sec-prog-wrap">
+      <div class="sec-prog-top"><span>Rhymes Explored</span><span id="rhymesProgPct">0%</span></div>
+      <div class="sec-prog-track"><div class="sec-prog-fill" id="rhymesProgFill"></div></div>
+    </div>
+    <div class="rhymes-list" id="rhymesList"></div>
+  </div>
+</div>
+
+<!-- ===== RHYME DETAIL ===== -->
+<div id="rhymeDetail" class="screen">
+  <div class="section-bg-overlay"></div>
+  <div class="rhyme-detail-container">
+    <div class="section-header">
+      <button class="btn-back" onclick="goBack('rhymesSection')">← Back</button>
+      <h2 id="rhymeDetailTitle">Rhyme</h2>
+    </div>
+    <div class="rhyme-layout">
+      <div class="rhyme-video-box">
+        <div class="video-placeholder"><div id="rhymeVideoContainer"></div></div>
+      </div>
+      <div class="rhyme-text-box">
+        <h3 id="rhymeDetailName"></h3>
+        <div id="rhymeDetailText" class="rhyme-text"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TABLES ===== -->
+<div id="tablesSection" class="screen">
+  <!-- ADD YOUR TABLES BACKGROUND: style="background-image:url('YOUR_URL')" on #tablesSection -->
+  <div class="section-bg-overlay"></div>
+  <div class="section-container">
+    <div class="section-header">
+      <button class="btn-back" onclick="goBack('welcome')">← Back</button>
+      <h2>🔢 Multiplication Tables</h2>
+    </div>
+    <div class="sec-prog-wrap">
+      <div class="sec-prog-top"><span>Tables Learned</span><span id="tablesProgPct">0%</span></div>
+      <div class="sec-prog-track"><div class="sec-prog-fill" id="tablesProgFill"></div></div>
+    </div>
+    <div class="tables-list" id="tablesList"></div>
+  </div>
+</div>
+
+<!-- ===== TABLE DETAIL ===== -->
+<div id="tableDetail" class="screen">
+  <div class="section-bg-overlay"></div>
+  <div class="rhyme-detail-container">
+    <div class="section-header">
+      <button class="btn-back" onclick="goBack('tablesSection')">← Back</button>
+      <h2 id="tableDetailTitle">Table</h2>
+    </div>
+    <div class="rhyme-layout">
+      <div class="rhyme-video-box">
+        <div class="video-placeholder"><div id="tableVideoContainer"></div></div>
+      </div>
+      <div class="rhyme-text-box">
+        <h3 id="tableDetailName"></h3>
+        <div id="tableDetailText" class="rhyme-text table-text"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== GAME ZONE ===== -->
+<div id="gamezoneSection" class="screen">
+  <!-- ADD YOUR GAMEZONE BACKGROUND: style="background-image:url('YOUR_URL')" on #gamezoneSection -->
+  <div class="section-bg-overlay"></div>
+  <div class="section-container">
+    <div class="section-header">
+      <button class="btn-back" onclick="goBack('welcome')">← Back</button>
+      <h2>🎮 Game Zone</h2>
+    </div>
+    <div class="sec-prog-wrap">
+      <div class="sec-prog-top"><span>Games Played</span><span id="gamesProgPct">0%</span></div>
+      <div class="sec-prog-track"><div class="sec-prog-fill" id="gamesProgFill"></div></div>
+    </div>
+    <div class="games-grid" id="gamesGrid"></div>
+  </div>
+</div>
+
+<!-- ===== GAME LEVEL SELECT ===== -->
+<div id="gameLevelSelect" class="screen">
+  <div class="section-bg-overlay"></div>
+  <div class="level-select-container">
+    <button class="btn-back" onclick="goBack('gamezoneSection')">← Back</button>
+    <h2 id="gameLevelTitle">Choose Level</h2>
+    <div class="levels-grid">
+      <div class="level-card easy-card" onclick="startGame('easy')">
+        <div class="level-icon">🟢</div>
+        <h3>Easy</h3>
+        <div class="high-score">🏆 Best: <span id="hsEasy">0</span></div>
+      </div>
+      <div class="level-card med-card" onclick="startGame('medium')">
+        <div class="level-icon">🟡</div>
+        <h3>Medium</h3>
+        <div class="high-score">🏆 Best: <span id="hsMedium">0</span></div>
+      </div>
+      <div class="level-card hard-card" onclick="startGame('hard')">
+        <div class="level-icon">🔴</div>
+        <h3>Hard</h3>
+        <div class="high-score">🏆 Best: <span id="hsHard">0</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SNAKE GAME ===== -->
+<div id="snakeGame" class="screen">
+  <div class="section-bg-overlay" style="background:linear-gradient(160deg,#001400,#002800)"></div>
+  <div class="game-fullscreen">
+    <div class="game-top-bar">
+      <button class="btn-back" onclick="exitGame('snakeGame')">← Back</button>
+      <h3>🐍 Snake Game</h3>
+      <div class="game-score-box">Score: <span id="snakeScore">0</span> | 🏆 <span id="snakeHigh">0</span></div>
+    </div>
+    <div class="game-canvas-wrap">
+      <canvas id="snakeCanvas" width="600" height="560"></canvas>
+    </div>
+    <div class="game-controls">
+      <div class="ctrl-row"><button class="ctrl-btn" onclick="snakeDir('up')">⬆</button></div>
+      <div class="ctrl-row">
+        <button class="ctrl-btn" onclick="snakeDir('left')">⬅</button>
+        <button class="ctrl-btn ctrl-start" onclick="startSnakeGame()">▶ START</button>
+        <button class="ctrl-btn" onclick="snakeDir('right')">➡</button>
+      </div>
+      <div class="ctrl-row"><button class="ctrl-btn" onclick="snakeDir('down')">⬇</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ROCKET GAME ===== -->
+<div id="rocketGame" class="screen">
+  <div class="section-bg-overlay" style="background:#000010"></div>
+  <div class="game-fullscreen">
+    <div class="game-top-bar">
+      <button class="btn-back" onclick="exitGame('rocketGame')">← Back</button>
+      <h3>🚀 Space Rocket</h3>
+      <div class="game-score-box">Score: <span id="rocketScore">0</span> | <span id="rocketLives">❤️❤️❤️</span></div>
+    </div>
+    <div class="game-canvas-wrap">
+      <canvas id="rocketCanvas" width="600" height="560"></canvas>
+    </div>
+    <div class="rocket-controls">
+      <button class="ctrl-btn" onmousedown="rocketKeys.left=true" onmouseup="rocketKeys.left=false" ontouchstart="rocketKeys.left=true" ontouchend="rocketKeys.left=false">⬅ Move</button>
+      <button class="btn-fire" onclick="fireBullet()">🔥 FIRE</button>
+      <button class="ctrl-btn" onmousedown="rocketKeys.right=true" onmouseup="rocketKeys.right=false" ontouchstart="rocketKeys.right=true" ontouchend="rocketKeys.right=false">Move ➡</button>
+    </div>
+    <div style="text-align:center;margin-top:8px"><button class="btn-primary" onclick="startRocketGame()" style="max-width:200px">▶ Start / Restart</button></div>
+  </div>
+</div>
+
+<!-- ===== FLIP CARD GAME ===== -->
+<div id="flipGame" class="screen">
+  <div class="section-bg-overlay" style="background:linear-gradient(160deg,#1a003a,#003a1a)"></div>
+  <div class="game-fullscreen">
+    <div class="game-top-bar">
+      <button class="btn-back" onclick="exitGame('flipGame')">← Back</button>
+      <h3>🃏 Flip the Card</h3>
+      <div class="game-score-box">Moves: <span id="flipMoves">0</span> | 🏆 <span id="flipBest">—</span></div>
+    </div>
+    <div class="sec-prog-wrap" style="max-width:620px;margin:0 auto 12px">
+      <div class="sec-prog-top"><span>Pairs Matched</span><span id="flipProgPct">0%</span></div>
+      <div class="sec-prog-track"><div class="sec-prog-fill" id="flipProgFill"></div></div>
+    </div>
+    <div id="flipBoard" class="flip-board"></div>
+    <div style="text-align:center;margin-top:14px"><button class="btn-primary" onclick="startFlipGame()" style="max-width:200px">▶ Start / Restart</button></div>
+  </div>
+</div>
+
+<!-- ===== LUDO GAME ===== -->
+<div id="ludoGame" class="screen">
+  <div class="section-bg-overlay" style="background:linear-gradient(160deg,#2a1000,#10002a)"></div>
+  <div class="game-fullscreen">
+    <div class="game-top-bar">
+      <button class="btn-back" onclick="exitGame('ludoGame')">← Back</button>
+      <h3>🎲 Ludo</h3>
+      <div class="game-score-box" id="ludoStatus">Press New Game</div>
+    </div>
+    <div class="ludo-wrap">
+      <div class="ludo-board" id="ludoBoard"></div>
+      <div class="ludo-sidebar">
+        <div class="ludo-dice" id="ludoDiceResult">🎲</div>
+        <button class="btn-primary" onclick="rollLudo()" style="margin-top:12px;width:100%">🎲 Roll Dice</button>
+        <button class="btn-secondary" onclick="startLudo()" style="margin-top:8px;width:100%">▶ New Game</button>
+        <div class="ludo-players" id="ludoPlayers"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TIC TAC TOE ===== -->
+<div id="tictactoeGame" class="screen">
+  <div class="section-bg-overlay" style="background:linear-gradient(160deg,#001a2a,#2a001a)"></div>
+  <div class="game-fullscreen">
+    <div class="game-top-bar">
+      <button class="btn-back" onclick="exitGame('tictactoeGame')">← Back</button>
+      <h3>❌ Tic Tac Toe ⭕</h3>
+      <div class="game-score-box">❌ <span id="tttScoreX">0</span> | ⭕ <span id="tttScoreO">0</span> | 🤝 <span id="tttDraw">0</span></div>
+    </div>
+    <div class="ttt-status" id="tttStatus">Press New Game to start!</div>
+    <div class="ttt-board" id="tttBoard"></div>
+    <p style="text-align:center;color:rgba(255,255,255,0.5);font-size:0.85rem;margin-top:8px">You are ❌ — Computer is ⭕</p>
+    <div style="text-align:center;margin-top:10px"><button class="btn-primary" onclick="startTTT()" style="max-width:200px">▶ New Game</button></div>
+  </div>
+</div>
+
+<!-- ===== READ ZONE ===== -->
+<div id="readzoneSection" class="screen">
+  <!-- ADD YOUR READZONE BACKGROUND: style="background-image:url('YOUR_URL')" on #readzoneSection -->
+  <div class="section-bg-overlay"></div>
+  <div class="section-container">
+    <div class="section-header">
+      <button class="btn-back" onclick="goBack('welcome')">← Back</button>
+      <h2>📚 Read Zone</h2>
+    </div>
+    <div class="sec-prog-wrap">
+      <div class="sec-prog-top"><span>Books Read</span><span id="booksProgPct">0%</span></div>
+      <div class="sec-prog-track"><div class="sec-prog-fill" id="booksProgFill"></div></div>
+    </div>
+    <div class="books-grid" id="booksGrid"></div>
+  </div>
+</div>
+
+<!-- ===== BOOK READER ===== -->
+<div id="bookReader" class="screen">
+  <div class="section-bg-overlay" style="background:rgba(0,0,0,0.85)"></div>
+  <div class="book-reader-container">
+    <div class="section-header">
+      <button class="btn-back" onclick="goBack('readzoneSection')">← Back</button>
+      <h2 id="bookReaderTitle">Book</h2>
+    </div>
+    <!-- ADD PDF URL in booksData[].pdfUrl in script.js -->
+    <iframe id="bookIframe" class="book-iframe" src="" frameborder="0"></iframe>
+    <p class="book-hint">📖 Use the viewer controls to navigate pages</p>
+  </div>
+</div>
+
+<!-- ===== GUEST MODAL ===== -->
+<div id="guestModal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-icon">🔒</div>
+    <h3>Members Only!</h3>
+    <p>Sign up to unlock all features in Kidzo world and enjoy unlimited access!</p>
+    <div class="modal-buttons">
+      <button class="btn-primary" onclick="closeModal();switchToAuth('signup')">Sign Up Now ✨</button>
+      <button class="btn-secondary" onclick="closeModal()">Maybe Later</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div id="toast" class="toast hidden"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
